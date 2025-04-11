@@ -16,3 +16,22 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 import "bootstrap"
+
+document.addEventListener('DOMContentLoaded', () => {
+  const alerts = document.querySelectorAll('.alert');
+
+  alerts.forEach(alert => {
+    setTimeout(() => {
+      // Usa el método de Bootstrap para cerrarlo si está disponible
+      if (typeof bootstrap !== 'undefined' && bootstrap.Alert) {
+        const bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+        bsAlert.close();
+      } else {
+        // Fallback: manualmente cerrar con clases
+        alert.classList.remove('show');
+        alert.classList.add('fade');
+        setTimeout(() => alert.remove(), 500); // espera animación
+      }
+    }, 4000); // 3 segundos
+  });
+});
